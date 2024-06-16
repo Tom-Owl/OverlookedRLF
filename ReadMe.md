@@ -1,10 +1,4 @@
 
-<p align="center" width="100%">
-</p>
-
-<div id="top" align="center">
-<img src=imgs/dynosaur.png width=150 />
-
 The Overlooked Repetitive Lengthening Form in Sentiment Analysis
 -----------------------------
 ## Overview
