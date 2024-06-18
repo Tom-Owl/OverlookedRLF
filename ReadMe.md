@@ -68,7 +68,7 @@ We customized our annotation page with streamlit.
 
 ### Code for customized user interface for human evaluation
 ```
-streamlit run ./code/human_eval_page.ipynb
+streamlit run ./code/human_eval_page.py
 ```
 
 
