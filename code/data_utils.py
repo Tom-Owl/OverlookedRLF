@@ -240,5 +240,5 @@ if __name__ == '__main__':
     document_text = 'I loooooove pizza soooo much! It tast good!!!!'
     label = 1
     data = process_document(document_text, label)
-    print('sentence, lengthening_word, root_word, normalized_form, pos_tag, label')
+    print('sentence, RLF_word, root_word, normalized_form, pos_tag, label')
     print(data)
