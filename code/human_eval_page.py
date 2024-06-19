@@ -32,8 +32,8 @@ def visualize_importance(input_items, normalized_importance, words_to_underline=
     #display(HTML(combined_text))
     return combined_text
 
-df_tmp = pd.read_parquet('./human_eval_sample.parquet')
-json_file_path = './data.json'
+df_tmp = pd.read_parquet('../data/human_eval_sample.parquet')
+json_file_path = '../data/result_tmp.json'
 
 def update_or_insert_data(data):
     # Check if the JSON file exists
@@ -82,6 +82,7 @@ if 'index' not in st.session_state:
     
 st.header(':pencil: Human Evaluation Page for RLF :student:', divider='rainbow')
 # st.subheader('Annotation for Sentiment Label 	:smiley_cat: 	:smirk_cat:')
+st.markdown('Document ID: **{}**'.format(document_id))
 st.subheader('Give a binary sentiment label (Positive or Negative) for each sentence', divider='rainbow')
 
 rlf_sent_label = st.radio(
@@ -96,8 +97,8 @@ no_rlf_sent_label = st.radio(
     horizontal=True,
     label_visibility="visible")
 
-#st.subheader('Annotation for Explanation Reliability :eyeglasses:')
-st.subheader('Give a reliability score for each result (1: Agree or 0: Disagree).', divider='rainbow')
+
+st.subheader('Give a reliability score for each result (Agree or Disagree).', divider='rainbow')
 
 col1, col2 = st.columns([1,1])
 with col1:
@@ -150,8 +151,6 @@ with col2:
     horizontal=True,
     label_visibility="hidden")
     
-
- 
 col1, col2, col3 = st.columns([1,1,1])  
 with col1:
     if st.button("Prev", type="primary"):
@@ -164,6 +163,7 @@ with col1:
 with col3: 
     if st.button("Next", type="primary"):
         data = {
+            'index': st.session_state['index'],
             'document_id': document_id,
             'rlf_sent_label': rlf_sent_label,
             'no_rlf_sent_label': no_rlf_sent_label,
@@ -180,6 +180,7 @@ with col3:
         [document_id, rlf_sent, no_rlf_sent, llama2_wis_html, roberta_wis_html, gpt2_wis_html, t5_wis_html, gpt4_wis_html] = get_visualize_content(df_tmp, st.session_state['index'])
         
         print('index + 1', st.session_state['index'])
+        print('rlf_sent: ', rlf_sent)
         
 progress_text = "Your progress.... {}%".format(int(st.session_state['index']/(df_tmp.shape[0]-1)*100))
 my_bar = st.progress(0, text=progress_text)
