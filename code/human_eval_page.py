@@ -32,10 +32,7 @@ def visualize_importance(input_items, normalized_importance, words_to_underline=
     #display(HTML(combined_text))
     return combined_text
 
-df_tmp = pd.read_parquet('../data/human_eval_sample.parquet')
-json_file_path = '../data/result_tmp.json'
-
-def update_or_insert_data(data):
+def update_or_insert_data(data, json_file_path = '../data/result_tmp.json'):
     # Check if the JSON file exists
     if os.path.exists(json_file_path):
         # Read existing data
@@ -75,10 +72,13 @@ def get_visualize_content(df, index):
 
 if 'index' not in st.session_state:
     st.session_state['index'] = 0
-    
     print('init index', st.session_state['index'])
+    json_file_path = '../data/result_tmp.json'
+    df_tmp = pd.read_parquet('../data/human_eval_sample.parquet') 
+    st.session_state['df_tmp'] = df_tmp
     
-[document_id, rlf_sent, no_rlf_sent, llama2_wis_html, roberta_wis_html, gpt2_wis_html, t5_wis_html, gpt4_wis_html] = get_visualize_content(df_tmp, st.session_state['index'])
+[document_id, rlf_sent, no_rlf_sent, llama2_wis_html, roberta_wis_html, gpt2_wis_html, t5_wis_html, gpt4_wis_html] = get_visualize_content(st.session_state['df_tmp'], st.session_state['index'])
+sample_size = st.session_state['df_tmp'].shape[0]
     
 st.header(':pencil: Human Evaluation Page for RLF :student:', divider='rainbow')
 # st.subheader('Annotation for Sentiment Label 	:smiley_cat: 	:smirk_cat:')
@@ -157,9 +157,9 @@ with col1:
         st.session_state['index'] -= 1
         if st.session_state['index'] <= 0:
             st.session_state['index'] = 0
-        [document_id, rlf_sent, no_rlf_sent, llama2_wis_html, roberta_wis_html, gpt2_wis_html, t5_wis_html, gpt4_wis_html] = get_visualize_content(df_tmp, st.session_state['index'])
+        st.experimental_rerun()
         print('index - 1', st.session_state['index'])
-                  
+                        
 with col3: 
     if st.button("Next", type="primary"):
         data = {
@@ -175,16 +175,14 @@ with col3:
         } 
         update_or_insert_data(data)
         st.session_state['index'] += 1
-        if st.session_state['index'] >= df_tmp.shape[0]-1:
-            st.session_state['index'] = df_tmp.shape[0]-1
-        [document_id, rlf_sent, no_rlf_sent, llama2_wis_html, roberta_wis_html, gpt2_wis_html, t5_wis_html, gpt4_wis_html] = get_visualize_content(df_tmp, st.session_state['index'])
-        
+        if st.session_state['index'] >= sample_size-1:
+            st.session_state['index'] = sample_size-1
+        st.experimental_rerun()
         print('index + 1', st.session_state['index'])
-        print('rlf_sent: ', rlf_sent)
         
-progress_text = "Your progress.... {}%".format(int(st.session_state['index']/(df_tmp.shape[0]-1)*100))
+progress_text = "Your progress.... {}%".format(int(st.session_state['index']/(sample_size-1) * 100))
 my_bar = st.progress(0, text=progress_text)
-my_bar.progress(st.session_state['index']/(df_tmp.shape[0]-1), text=progress_text)
+my_bar.progress(st.session_state['index']/(sample_size-1), text=progress_text)
     
     
     
