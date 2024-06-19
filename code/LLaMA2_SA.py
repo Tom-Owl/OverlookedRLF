@@ -174,7 +174,23 @@ Now Input:''' + \
         res_pair = extract_word_score_pairs(extract_res)
         word_list = [item[0] for item in res_pair]
         w_imp_list = [int(item[1]) for item in res_pair]
-        w_imp_list = self.norm_imp_score(w_imp_list)
+        w_imp_list = self.norm_imp_score(w_imp_list)  
+        
+        orig_word_list = rlf_sent.split()
+        orig_w_imp_list = [1/len(orig_word_list)] * len(orig_word_list)
+        if len(w_imp_list) == 0 or len(word_list) == 0 or len(w_imp_list) != len(word_list):
+            return orig_word_list, orig_w_imp_list
+        
+        for i in range(len(orig_word_list)):
+            if orig_word_list[i] in word_list:
+                orig_w_imp_list[i] = w_imp_list[word_list.index(orig_word_list[i])]
+            else:
+                for j in range(len(word_list)):
+                    if orig_word_list[i] in word_list[j]:
+                        orig_w_imp_list[i] = w_imp_list[j]
+        
+        w_imp_list =  self.norm_imp_score(orig_w_imp_list)       
+        word_list = orig_word_list
         return word_list, w_imp_list
     
     def get_sentiment(self, text_list):

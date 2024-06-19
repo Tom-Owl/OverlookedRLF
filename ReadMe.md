@@ -2,10 +2,9 @@ The Overlooked Repetitive Lengthening Form in Sentiment Analysis
 -----------------------------
 ## Overview
 We call attention to RLF, an expressive-valuable and prevailed but overlooked informal style. We show that RLF sentences can serve as signatures of document sentiment and have potential value for online content analysis.
-<figure>
-  <img src="./img/Framework_RLF.png" alt="Framework_RLF" width="800">
-  <figcaption>An overview of our framework for RLF. (1) We introduce <strong>Lengthening</strong> in Section 3. (2) We propose <strong>ExpInstruct</strong> and describe prompt details in Section 4.1. (3) Experiments details are in Section 5.</figcaption>
-</figure>
+
+![Framework_RLF](./img/Framework_RLF.png)
+*Figure 1: An overview of our framework for RLF. (1) We introduce **Lengthening** in Section 3. (2) We propose **ExpInstruct** and describe prompt details in Section 4.1. (3) Experiments details are in Section 5.*
 
 Our contributions are as follows:
 - We introduce **Lengthening**, a multi-domains dataset featuring RLFs with 850k samples grounding from 4 public datasets for SA tasks.
@@ -31,11 +30,9 @@ We prompt GPT-4 with CoT to generate Word Importance Scores (WIS) to reflect wor
 
 ### Instruction Template
 ExpInstruct consists of two tasks with the same prompt template as shown in the figure below:
-<figure>
-  <img src="./img/Task_Instruction.png" alt="Task_Instruction" width="500">
-  <figcaption>Prompt Design and Template for ExpInstruct. (a) Prompt with CoT for word-level explainability. 
-(b) Simple Prompt for SA. (c) Prompt Template for Instruction tuning</figcaption>
-</figure>
+
+![Task_Instruction](./img/Task_Instruction.png)
+*Figure 2: Prompt Design and Template for ExpInstruct. (a) Prompt with CoT for word-level explainability. (b) Simple Prompt for SA. (c) Prompt Template for Instruction tuning*
 
 ### Code for ExpInstruct with LLaMA2
 ```
@@ -44,12 +41,10 @@ python ./code/ExpInstruct_LLaMA2.py
 
 ## A Unified Approach to Evaluate Explainability
 For LLMs, we use a prompt-based method to generate WIS. For PLMs, we choose a saliency-based method to generate WIS. Specifically, we use the occlusion-based method.
-To eliminate the barrier caused by differing relative WIS values across models, we apply min-max followed by \( L_1 \) normalization to WIS
+To eliminate the barrier caused by differing relative WIS values across models, we apply min-max followed by \( L_1 \) normalization to WIS as show in Figure 3.
 
-<figure>
-  <img src="./img/WIS_example.png" alt="WIS_example" width="500">
-  <figcaption>Comparing normalized WIS for an RLF sentence from zero-shot GPT-4 and fine-tuned RoBERTa.</figcaption>
-</figure>
+![WIS_example](./img/WIS_example.png)
+*Figure 3: Comparing normalized WIS for an RLF sentence from zero-shot GPT-4 and fine-tuned RoBERTa.*
 
 ### Code for the Unified Approach to Evaluate Explainability
 ```
@@ -61,10 +56,9 @@ We conduct human evaluation to assess potential errors in our methodology.
 **Task 1** - Annotation for Sentiment Label: Give a sentence (RLF or w/o RLF). Annotators need to give a binary sentiment label (1: Positive, 0: Negative).
 **Task 2** - Annotation for Explanation Reliability: Annotators need to give the reliability score for each result (1: Agree, 0: Disagree).
 We customized our annotation page with streamlit.
-<figure>
-  <img src="./img/Human_eval_page.png" alt="Human_eval_page" width="500">
-  <figcaption>Our customized user interface for human evaluation. Annotators are asked to do two tasks: annotation for sentiment labels and explanation reliability.</figcaption>
-</figure>
+
+![Human_eval_page](./img/Human_eval_page.png)
+*Figure 4: Our customized user interface for human evaluation. Annotators are asked to do two tasks: annotation for sentiment labels and explanation reliability.*
 
 ### Code for customized user interface for human evaluation
 ```
