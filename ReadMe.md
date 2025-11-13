@@ -1,7 +1,7 @@
 [The Overlooked Repetitive Lengthening Form in Sentiment Analysis](https://aclanthology.org/2024.findings-emnlp.952/)
 -----------------------------
 ## Overview
-We call attention to RLF, an expressive-valuable and prevailed but overlooked informal style. We show that RLF sentences can serve as signatures of document sentiment and have potential value for online content analysis.
+This work has been accepted to Findings of [EMNLP 2024](https://aclanthology.org/events/emnlp-2024/). We call attention to RLF, an expressive-valuable and prevailed but overlooked informal style. We show that RLF sentences can serve as signatures of document sentiment and have potential value for online content analysis.
 
 ![Framework_RLF](./img/Framework_RLF.png)
 *Figure 1: An overview of our framework for RLF. (1) We introduce **Lengthening** in Section 3. (2) We propose **ExpInstruct** and describe prompt details in Section 4.1. (3) Experiments details are in Section 5.*
@@ -65,6 +65,24 @@ We customized our annotation page with streamlit.
 cd code
 streamlit run human_eval_page.py
 ```
+## Cite our work
+```bibtex
+@inproceedings{wang-dragut-2024-overlooked,
+    title = "The Overlooked Repetitive Lengthening Form in Sentiment Analysis",
+    author = "Wang, Lei  and
+      Dragut, Eduard",
+    editor = "Al-Onaizan, Yaser  and
+      Bansal, Mohit  and
+      Chen, Yun-Nung",
+    booktitle = "Findings of the Association for Computational Linguistics: EMNLP 2024",
+    month = nov,
+    year = "2024",
+    address = "Miami, Florida, USA",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2024.findings-emnlp.952/",
+    doi = "10.18653/v1/2024.findings-emnlp.952",
+    pages = "16225--16238"
+}
 
 
 
