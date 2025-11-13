@@ -1,4 +1,4 @@
-The Overlooked Repetitive Lengthening Form in Sentiment Analysis
+[The Overlooked Repetitive Lengthening Form in Sentiment Analysis](https://aclanthology.org/2024.findings-emnlp.952/)
 -----------------------------
 ## Overview
 We call attention to RLF, an expressive-valuable and prevailed but overlooked informal style. We show that RLF sentences can serve as signatures of document sentiment and have potential value for online content analysis.
